@@ -45,7 +45,7 @@ class Point:
 class Polynom:
     def __init__(self, points=None, colour=Colour.RED):
         self._points = list(points) if points else []
-        self._colour = colour
+        self.colour = colour
 
     def __del__(self):
         print(f"Об'єкт Polynom ({len(self._points)} точок) видалено")
@@ -88,10 +88,10 @@ class Polynom:
         return max(diags, key=lambda d: d[2])
 
     def sort_by_x(self):
-        self._points.sort(key=lambda p: (p.x, p.y))
+        return sorted(self._points, key=lambda p: (p.x, p.y))
 
     def sort_by_y(self):
-        self._points.sort(key=lambda p: (p.y, p.x))
+        return sorted(self._points, key=lambda p: (p.y, p.x))
 
     def show(self):
         print(f"Многокутник, колір: {self._colour.name}, "
@@ -126,13 +126,13 @@ def main():
     poly.show_perimeter()
     poly.show_diagonals()
 
-    poly.sort_by_x()
     print("\nСортування за x:")
-    poly.show()
+    for i, p in enumerate(poly.sort_by_x()):
+        print(f"  Точка {i}: {p}")
 
-    poly.sort_by_y()
     print("\nСортування за y:")
-    poly.show()
+    for i, p in enumerate(poly.sort_by_y()):
+        print(f"  Точка {i}: {p}")
 
     p1.x = 2
     poly.colour = Colour.BLUE
@@ -144,3 +144,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
